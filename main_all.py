@@ -854,41 +854,59 @@ class MainInterface:
     def rastr_calculation(self):
         sum_raastr=[]
         if len(self.filename_NO2)>0:
-            if len(sum_raastr)>1:
+            if len(sum_raastr)>0:
                 sum_raastr+=self.calc_reastr_end_rasterio(self.filepath_NO2, self.filename_NO2, 0, self.mean_NO2)
+                meta = self.tif_meta(self.filepath_NO2, self.filename_NO2)
+                print("1")
             else:
                 sum_raastr=self.calc_reastr_end_rasterio(self.filepath_NO2, self.filename_NO2, 0, self.mean_NO2)
                 meta = self.tif_meta(self.filepath_NO2, self.filename_NO2)
+                print("0")
         if len(self.filename_SO2)>0:
-            if len(sum_raastr)>1:
+            if len(sum_raastr)>0:
                 sum_raastr+=self.calc_reastr_end_rasterio(self.filepath_SO2, self.filename_SO2, 1, self.mean_SO2)
+                meta = self.tif_meta(self.filepath_SO2, self.filename_SO2)
+                print("2")
             else:
                 sum_raastr=self.calc_reastr_end_rasterio(self.filepath_SO2, self.filename_SO2, 1, self.mean_SO2)
                 meta = self.tif_meta(self.filepath_SO2, self.filename_SO2)
+                print("3")
         if len(self.filename_HCHO)>0:
-            if len(sum_raastr)>1:
+            if len(sum_raastr)>0:
                 sum_raastr+=self.calc_reastr_end_rasterio(self.filepath_HCHO, self.filename_HCHO, 2, self.mean_HCHO)
+                meta = self.tif_meta(self.filepath_HCHO, self.filename_HCHO)
+                print("4")
             else:
                 sum_raastr=self.calc_reastr_end_rasterio(self.filepath_HCHO, self.filename_HCHO, 2, self.mean_HCHO)
                 meta = self.tif_meta(self.filepath_HCHO, self.filename_HCHO)
+                print("5")
         if len(self.filename_CO)>0:
-            if len(sum_raastr)>1:
+            if len(sum_raastr)>0:
                 sum_raastr+=self.calc_reastr_end_rasterio(self.filepath_CO, self.filename_CO, 3, self.mean_CO)
+                meta = self.tif_meta(self.filepath_CO, self.filename_CO)
+                print("6")
             else:
                 sum_raastr=self.calc_reastr_end_rasterio(self.filepath_CO, self.filename_CO, 3, self.mean_CO)
                 meta = self.tif_meta(self.filepath_CO, self.filename_CO)
+                print("7")
         if len(self.filename_CH4)>0:
-            if len(sum_raastr)>1:
+            if len(sum_raastr)>0:
                 sum_raastr+=self.calc_reastr_end_rasterio(self.filepath_CH4, self.filename_CH4, 4, self.mean_CH4)
+                meta = self.tif_meta(self.filepath_CH4, self.filename_CH4)
+                print("8")
             else:
                 sum_raastr=self.calc_reastr_end_rasterio(self.filepath_CH4, self.filename_CH4, 4, self.mean_CH4)
                 meta = self.tif_meta(self.filepath_CH4, self.filename_CH4)
+                print("9")
         if len(self.filename_O3)>0:
-            if len(sum_raastr)>1:
+            if len(sum_raastr)>0:
                 sum_raastr+=self.calc_reastr_end_rasterio(self.filepath_O3, self.filename_O3, 5, self.mean_O3)
+                meta = self.tif_meta(self.filepath_O3, self.filename_O3)
+                print("10")
             else:
                 sum_raastr=self.calc_reastr_end_rasterio(self.filepath_O3, self.filename_O3, 5, self.mean_O3)
                 meta = self.tif_meta(self.filepath_O3, self.filename_O3)
+                print("11")
         self.meta=meta
         meta.update({"driver": "GTiff",
                      "height": sum_raastr.shape[1],
@@ -909,7 +927,7 @@ class MainInterface:
         for r in range(1, len(full_file_names)):
             tmp_tif = rasterio.open(full_file_paths[r]+"\\"+full_file_names[r]).read()
             sum_rastr += (tmp_tif/mean[r][1])**self.danger_const[k]
-            #print(str(tmp_tif),str(mean[r][1]),str(self.danger_const[k]))
+            print(str(tmp_tif),str(mean[r][1]),str(self.danger_const[k]))
         return sum_rastr
     
     """def calc_one_rastr(self,full_file_paths,full_file_names,k):
